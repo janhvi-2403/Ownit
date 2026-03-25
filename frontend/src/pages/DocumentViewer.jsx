@@ -20,7 +20,7 @@ export default function DocumentViewer() {
     useEffect(() => {
         const fetchDoc = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/qr/document/${qrId}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/qr/document/${qrId}`);
                 setCredential(res.data.credential);
                 setPayload(res.data.qrPayload);
                 startCamera(); // Proceed to activate environment tracking
@@ -109,7 +109,7 @@ export default function DocumentViewer() {
         if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
 
         try {
-            await axios.post(`http://localhost:5000/api/qr/violation/${qrId}`, { reason });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/qr/violation/${qrId}`, { reason });
         } catch (e) { }
     };
 

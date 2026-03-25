@@ -16,7 +16,7 @@ export default function CarbonBuyerDashboard() {
 
     const fetchListings = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/carbon/listings');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/carbon/listings`);
             setListings(res.data);
             if (res.data.length === 0) setMockData();
         } catch (e) { setMockData(); }
@@ -31,7 +31,7 @@ export default function CarbonBuyerDashboard() {
 
     const fetchPrices = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/carbon/market-prices');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/carbon/market-prices`);
             setPriceData(res.data);
         } catch (e) {
             setPriceData({ currentPricePerTon: 45.2, trend: '+5.3%', history: [38, 40, 42, 45.2] });
@@ -40,7 +40,7 @@ export default function CarbonBuyerDashboard() {
 
     const handleBuy = async (id, quantity) => {
         try {
-            await axios.post(`http://localhost:5000/api/carbon/buy/${id}`, { buyerId: user?.id || 'BUYER_1' });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/carbon/buy/${id}`, { buyerId: user?.id || 'BUYER_1' });
             alert(`Algorand Atomic Swap Executed!\n${quantity} Tons transferred securely to your Corporate Wallet.`);
             fetchListings();
         } catch (err) { alert('Atomic Swap matched on Mock logic'); }

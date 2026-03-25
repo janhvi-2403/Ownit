@@ -22,21 +22,21 @@ export default function GovernmentDashboard() {
 
     const fetchQueue = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/government/pending-national');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/government/pending-national`);
             setQueue(res.data);
         } catch (e) { }
     };
 
     const fetchFraudReports = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/government/fraud-reports');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/government/fraud-reports`);
             setFraudReports(res.data);
         } catch (e) { }
     };
 
     const handleIssueCertificate = async (id) => {
         try {
-            await axios.post(`http://localhost:5000/api/government/issue-certificate/${id}`);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/government/issue-certificate/${id}`);
             alert("Official Validation Certificate Issued and Anchored to Blockchain!");
             fetchQueue();
         } catch (e) { alert("Failed to issue certificate"); }
@@ -46,7 +46,7 @@ export default function GovernmentDashboard() {
         try {
             const reason = window.prompt("Reason for Fraud Flag (e.g. Forgery, Spoofed Photo):");
             if (!reason) return;
-            await axios.post(`http://localhost:5000/api/government/flag-document`, { credentialId: id, reason, severity: 'CRITICAL' });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/government/flag-document`, { credentialId: id, reason, severity: 'CRITICAL' });
             alert("Document Globally Flagged as Fraudulent. Account Frozen.");
             fetchQueue();
         } catch (e) { alert("Failed to flag document"); }
@@ -57,7 +57,7 @@ export default function GovernmentDashboard() {
         setLoadingCross(true);
         setCrossRefResult(null);
         try {
-            const res = await axios.post('http://localhost:5000/api/government/central-db', crossRefParams);
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/government/central-db`, crossRefParams);
             setCrossRefResult(res.data);
         } catch (e) {
             alert("Database lookup failed.");

@@ -56,7 +56,7 @@ export default function CitizenDashboard() {
 
     const fetchCredentials = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/citizen/credentials');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/citizen/credentials`);
             // Sort to ensure newly uploaded documents appear 1st (descending creation)
             const sorted = res.data
                 .filter(c => c.userId === user?.id || true)
@@ -67,14 +67,14 @@ export default function CitizenDashboard() {
 
     const fetchAuthorities = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/admin/authorities');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/authorities`);
             setAuthorities(res.data);
         } catch (err) { }
     };
 
     const fetchCarbonCredits = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/carbon/listings');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/carbon/listings`);
             setCarbonCredits(res.data);
         } catch (err) {
             setCarbonCredits([]);
@@ -83,7 +83,7 @@ export default function CitizenDashboard() {
 
     const fetchInsights = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/insights/citizen');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/insights/citizen`);
             setInsights(res.data);
         } catch (err) {
             setInsights({ creditScore: 780, predictions: "Carbon credits rising 12%", risk: "Low" });
@@ -92,7 +92,7 @@ export default function CitizenDashboard() {
 
     const fetchConsents = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/consent/active');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/consent/active`);
             setConsents(res.data || []);
         } catch (err) { setConsents([]) }
     };
@@ -108,7 +108,7 @@ export default function CitizenDashboard() {
         formData.append('userId', user?.id);
 
         try {
-            await axios.post('http://localhost:5000/api/citizen/upload-document', formData);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/citizen/upload-document`, formData);
             alert('Document Uploaded Successfully for Verification');
             setFile(null);
             setAuthSearch('');
@@ -120,13 +120,13 @@ export default function CitizenDashboard() {
     const shareQR = async (credId) => {
         try {
             const expiresAt = new Date(Date.now() + 15 * 60000); // 15 mins expiry natively
-            const res = await axios.post('http://localhost:5000/api/qr/generate', {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/qr/generate`, {
                 originalResourceId: credId,
                 resourceType: 'credential',
                 expiresAt,
                 userId: user?.id
             });
-            const link = `http://localhost:5173/share/${res.data.qrId}`;
+            const link = `${import.meta.env.VITE_FRONTEND_URL}/share/${res.data.qrId}`;
             setQrModal({ isOpen: true, link });
             fetchConsents(); // Instantly reload active consents
         } catch (err) { alert('Failed to generate sharing QR.'); }
@@ -135,7 +135,7 @@ export default function CitizenDashboard() {
     const tokenizeLand = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/tokenization/tokenize', landData);
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/tokenization/tokenize`, landData);
             setTokenizedLands([...tokenizedLands, { ...landData, assetId: res.data.assetId }]);
             alert('Land Asset Tokenized onto Algorand Blockchain as a new ASA!');
             setLandData({ surveyNumber: '', area: '', value: '' });
@@ -144,7 +144,7 @@ export default function CitizenDashboard() {
 
     const sellCarbon = async () => {
         try {
-            await axios.post('http://localhost:5000/api/carbon/sell', { amount: 50, price: 15.5, ownerId: user?.id });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/carbon/sell`, { amount: 50, price: 15.5, ownerId: user?.id });
             alert('Atomic Swap order placed on marketplace');
             fetchCarbonCredits();
         } catch (err) { alert('Failed to sell carbon credits'); }
@@ -153,7 +153,7 @@ export default function CitizenDashboard() {
     const revokeConsent = async (e) => {
         e.preventDefault();
         try {
-            await axios.delete(`http://localhost:5000/api/consent/${revokeId}`);
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/consent/${revokeId}`);
             alert('Consent Revoked Immutable anchored');
         } catch (e) { alert('Revocation failure'); }
     };
@@ -322,7 +322,7 @@ export default function CitizenDashboard() {
                         <QRScanner onScanSuccess={(data) => {
                             const qrId = data.includes('/share/') ? data.split('/share/')[1] : data;
                             // Execute the audit log quietly in the background without waiting
-                            axios.post('http://localhost:5000/api/qr/scan', {
+                            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/qr/scan`, {
                                 qrId,
                                 deviceInfo: navigator.userAgent
                             }).catch(() => {});

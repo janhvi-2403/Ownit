@@ -27,7 +27,7 @@ export default function EmployerDashboard() {
                     setScannerActive(false);
                     try {
                         // Ping actual QR backend validation
-                        const res = await axios.post('http://localhost:5000/api/qr/verify', { qrPayload: decodedText });
+                        const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/qr/verify`, { qrPayload: decodedText });
                         setScanResult({
                             valid: res.data.valid,
                             payload: res.data.data

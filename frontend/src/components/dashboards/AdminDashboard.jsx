@@ -20,13 +20,13 @@ export default function AdminDashboard() {
     const fetchData = async () => {
         try {
             if (activeTab === 'AUTHORITIES') {
-                const res = await axios.get('http://localhost:5000/api/admin/authorities');
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/authorities`);
                 setAuthorities(res.data);
             } else if (activeTab === 'ANALYTICS') {
-                const res = await axios.get('http://localhost:5000/api/admin/system-stats');
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/system-stats`);
                 setAnalytics(res.data);
             } else if (activeTab === 'AUDIT') {
-                const res = await axios.get('http://localhost:5000/api/admin/audit-logs');
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/audit-logs`);
                 setAuditLogs(res.data);
             }
         } catch (e) { console.error("Admin fetch error", e); }
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
                 email: newAuthority.email,
                 password: newAuthority.password
             };
-            await axios.post('http://localhost:5000/api/admin/authorities', payload);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/admin/authorities`, payload);
             alert('Authority generated and Admin Wallet created successfully!');
             setNewAuthority({ name: '', domain: '', type: 'COLLEGE', email: '', password: '' });
             fetchData();
@@ -51,7 +51,7 @@ export default function AdminDashboard() {
 
     const handleToggleStatus = async (id, currentIsActive) => {
         try {
-            await axios.put(`http://localhost:5000/api/admin/authorities/${id}/status`, { isActive: !currentIsActive });
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/admin/authorities/${id}/status`, { isActive: !currentIsActive });
             fetchData();
         } catch (err) { alert(`Failed to change status: ${err.response?.data?.error || err.message}`); }
     };
@@ -59,7 +59,7 @@ export default function AdminDashboard() {
     const handleDeleteAuthority = async (id) => {
         if (!window.confirm("Are you sure? This cannot be undone.")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/admin/authorities/${id}`);
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/admin/authorities/${id}`);
             fetchData();
         } catch (err) { alert('Failed to delete'); }
     };

@@ -13,7 +13,7 @@ export default function BankDashboard() {
 
     const fetchLoanOffers = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/tokenization/loan-offers');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/tokenization/loan-offers`);
             setLoanRequests(res.data);
         } catch (e) {
             // Mock fallback if route has issues handling pure unpopulated requests
@@ -34,7 +34,7 @@ export default function BankDashboard() {
 
     const handleApproveLoan = async (id) => {
         try {
-            await axios.post(`http://localhost:5000/api/tokenization/accept-offer/${id}`);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/tokenization/accept-offer/${id}`);
             alert('Loan Approved! Collateral Asset permanently locked in Algorand Smart Contract Escrow.');
             fetchLoanOffers();
         } catch (err) { alert('Failed to approve loan (Mock fallback in use)'); }

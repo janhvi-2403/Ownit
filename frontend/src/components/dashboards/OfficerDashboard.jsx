@@ -17,7 +17,7 @@ export default function OfficerDashboard() {
         try {
             // Inherits the same endpoint as generic Authority admins but in a production setup 
             // the backend might filter by "assignedTo: user_id"
-            const res = await axios.get(`http://localhost:5000/api/authority/pending-verifications?email=${user.email}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/authority/pending-verifications?email=${user.email}`);
             setTasks(res.data);
         } catch (e) { }
     };
@@ -27,7 +27,7 @@ export default function OfficerDashboard() {
         try {
             if (level === 3) {
                 // Final Level Verification triggers actual Blockchain API
-                await axios.post(`http://localhost:5000/api/authority/verify/${selectedTask._id}`);
+                await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/authority/verify/${selectedTask._id}`);
                 alert("Level 3 Escalation Complete! Identity fully anchored to Algorand network.");
                 setSelectedTask(null);
                 fetchTasks();

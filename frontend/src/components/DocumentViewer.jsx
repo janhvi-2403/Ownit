@@ -82,7 +82,7 @@ export default function DocumentViewer({ documentUrl, credentialId }) {
                         setViolationMsg(`Mobile device detected! Confidence: ${(phoneDetected.score * 100).toFixed(1)}%. Screenshot attempt blocked.`);
 
                         // Log to backend
-                        await axios.post('http://localhost:5000/api/detection/analyze', {
+                        await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/detection/analyze`, {
                             confidence: Math.round(phoneDetected.score * 100),
                             documentId: credentialId,
                             isMobileDetected: true,

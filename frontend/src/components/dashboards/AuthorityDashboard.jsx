@@ -25,28 +25,28 @@ export default function AuthorityDashboard() {
 
     const fetchRequests = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/authority/pending-verifications?email=${user.email}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/authority/pending-verifications?email=${user.email}`);
             setRequests(res.data);
         } catch (e) { }
     };
 
     const fetchStats = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/authority/stats?email=${user.email}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/authority/stats?email=${user.email}`);
             setStats(res.data);
         } catch (e) { }
     };
 
     const fetchStaff = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/authority/staff?email=${user.email}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/authority/staff?email=${user.email}`);
             setStaff(res.data);
         } catch (e) { }
     };
 
     const handleVerify = async (credentialId) => {
         try {
-            await axios.post(`http://localhost:5000/api/authority/verify/${credentialId}`);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/authority/verify/${credentialId}`);
             alert("Verification anchored securely to Algorand Blockchain!");
             fetchRequests();
         } catch (err) { alert("Failed verification commit."); }
@@ -56,7 +56,7 @@ export default function AuthorityDashboard() {
         try {
             const reason = window.prompt("Enter Rejection Reason:");
             if (!reason) return;
-            await axios.post(`http://localhost:5000/api/authority/reject/${credentialId}`, { reason });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/authority/reject/${credentialId}`, { reason });
             alert("Document Rejected.");
             fetchRequests();
         } catch (err) { alert("Failed to reject."); }
@@ -65,7 +65,7 @@ export default function AuthorityDashboard() {
     const handleAddStaff = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/authority/staff', newStaff);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/authority/staff`, newStaff);
             alert("Verification Officer account created!");
             setNewStaff({ name: '', email: '', password: '' });
             fetchStaff();
