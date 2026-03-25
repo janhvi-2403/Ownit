@@ -19,6 +19,31 @@ router.get('/authorities', async (req, res) => {
 });
 
 
+// 🔥 TEMP ROUTE - CREATE SUPER ADMIN
+router.get('/init-super-admin', async (req, res) => {
+    try {
+        const existing = await User.findOne({ role: 'SUPER_ADMIN' });
+
+        if (existing) {
+            return res.json({ message: "Admin already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash("password123l", 10);
+
+        const admin = await User.create({
+            name: "Super Admin",
+            email: "admin@ownit.gov.in",
+            password: hashedPassword,
+            role: "SUPER_ADMIN"
+        });
+
+        res.json({ message: "SUPER_ADMIN created", admin });
+
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Add new authority and automatically create the admin user
 router.post('/authorities', async (req, res) => {
     try {
