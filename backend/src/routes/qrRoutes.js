@@ -127,4 +127,27 @@ router.post('/verify-upload', upload.single('qrImage'), async (req, res) => {
     }
 });
 
+router.get('/:qrId', async (req, res) => {
+    try {
+        const qr = await QRCode.findOne({ qrId: req.params.qrId });
+        if (!qr) return res.status(404).json({ message: 'Invalid QR Link' });
+
+        // ✅ ADD THIS (important security + consistency)
+        if (qr.status !== 'ACTIVE' || (qr.expiresAt && new Date() > qr.expiresAt)) {
+            return res.status(403).json({ message: 'QR Code Expired or Revoked' });
+        }
+
+        const Credential = require('../models/Credential');
+        const cred = await Credential.findById(qr.originalResourceId);
+
+        if (!cred) return res.status(404).json({ message: 'Document missing' });
+
+        res.json({ credential: cred, qrPayload: qr });
+
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 module.exports = router;
