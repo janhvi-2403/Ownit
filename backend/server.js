@@ -5,7 +5,6 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const http = require('http');
-const path = require('path');
 const { Server } = require('socket.io');
 
 dotenv.config();
@@ -13,26 +12,46 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-// Websocket for real-time notifications
+// =======================
+// SOCKET.IO SETUP
+// =======================
 const io = new Server(server, {
-    cors: { origin: '*' } // In production, restrict to frontend URLs
+    cors: {
+        origin: process.env.FRONTEND_URL || '*', // better than *
+        methods: ['GET', 'POST']
+    }
 });
 
-// Middleware
+// =======================
+// MIDDLEWARE
+// =======================
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONTEND_URL || '*' }));
+
+app.use(cors({
+    origin: process.env.FRONTEND_URL || '*',
+    credentials: true
+}));
+
 app.use(helmet());
 app.use(morgan('dev'));
 
-// Database connection
+// =======================
+// DATABASE
+// =======================
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/ownit')
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.error('MongoDB Connection Error:', err));
+    .then(() => console.log('✅ MongoDB Connected'))
+    .catch(err => console.error('❌ MongoDB Error:', err));
 
-// Temporary root
-app.get('/', (req, res) => res.send('OwnIt API Running'));
+// =======================
+// HEALTH CHECK
+// =======================
+app.get('/', (req, res) => {
+    res.json({ message: 'OwnIt API Running 🚀' });
+});
 
-// Mount Routes
+// =======================
+// ROUTES
+// =======================
 app.use('/api/auth', require('./src/routes/authRoutes'));
 app.use('/api/qr', require('./src/routes/qrRoutes'));
 app.use('/api/admin', require('./src/routes/adminRoutes'));
@@ -46,22 +65,35 @@ app.use('/api/carbon', require('./src/routes/carbonRoutes'));
 app.use('/api/insights', require('./src/routes/insightsRoutes'));
 app.use('/api/detection', require('./src/routes/detectionRoutes'));
 
-// Socket.io injection
+// =======================
+// SOCKET EVENTS
+// =======================
 app.set('io', io);
+
 io.on('connection', (socket) => {
-    console.log('Client connected:', socket.id);
+    console.log('🔌 Client connected:', socket.id);
+
     socket.on('join_dashboard', (userId) => {
         socket.join(userId);
     });
+
     socket.on('disconnect', () => {
-        console.log('Client disconnected:', socket.id);
+        console.log('❌ Client disconnected:', socket.id);
     });
 });
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
+// =======================
+// 404 HANDLER (API only)
+// =======================
 app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    res.status(404).json({ message: 'API Route Not Found' });
 });
 
+// =======================
+// SERVER START
+// =======================
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+server.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
