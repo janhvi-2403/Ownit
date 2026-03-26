@@ -56,6 +56,11 @@ io.on('connection', (socket) => {
         console.log('Client disconnected:', socket.id);
     });
 });
+app.use(express.static(path.join(__dirname, "dist"))); // for Vite
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
