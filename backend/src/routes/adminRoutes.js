@@ -50,7 +50,8 @@ router.post('/authorities', async (req, res) => {
             email: email,
             password: hashedPassword,
             role: baseRole,
-            algorandAddress: wallet.address
+            algorandAddress: wallet.address,
+            authorityId: authority._id // Link user to the newly created authority
         });
         await user.save();
 
@@ -72,8 +73,15 @@ router.put('/authorities/:id/status', async (req, res) => {
 // Delete authority
 router.delete('/authorities/:id', async (req, res) => {
     try {
-        await Authority.findByIdAndDelete(req.params.id);
-        res.json({ message: 'Authority successfully removed.' });
+        const authorityId = req.params.id;
+        
+        // 1. Delete associated users
+        await User.deleteMany({ authorityId: authorityId });
+        
+        // 2. Delete the authority itself
+        await Authority.findByIdAndDelete(authorityId);
+        
+        res.json({ message: 'Authority and associated users successfully removed.' });
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
