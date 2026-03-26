@@ -59,7 +59,7 @@ export default function CitizenDashboard() {
             const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/citizen/credentials`);
             // Sort to ensure newly uploaded documents appear 1st (descending creation)
             const sorted = res.data
-                .filter(c => c.userId === user?.id || true)
+                .filter(c => c.userId === user?.id)
                 .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
             setCredentials(sorted);
         } catch (err) { }
