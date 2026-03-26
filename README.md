@@ -7,7 +7,7 @@ OwnIt is a next-generation platform for digital ownership designed for 1.4 billi
 - **`backend/`**: Node.js + Express + MongoDB. Contains 15 collections, robust REST routing, WebSocket triggers, and the Algorand/IPFS integrations.
 - **`frontend/`**: Vite + React + TailwindCSS (v4). Features global glassmorphism, React-Router, and complex QR/TFJS camera components.
 - **`mobile/`**: React Native + Expo App. Includes deep-linking and secure vault screen-capture prevention mechanisms.
-- **`ml_service/`**: Python/TensorFlow logic for training the mobile/camera detection system.
+
 
 ## Setup Instructions
 
@@ -39,22 +39,7 @@ OwnIt is a next-generation platform for digital ownership designed for 1.4 billi
    node server.js
    ```
 
-### 2. Machine Learning
-
-The folder `ml_service/` houses `train_model.py`. 
-Due to strict requirements, it trains on randomly named positive examples inside the `train/` directory.
-
-Run:
-```bash
-cd ml_service
-python -m venv venv 
-venv\Scripts\activate
-pip install tensorflow pillow
-python train_model.py
-```
-*This script will generate `model.json` exports usable by the Frontend Document Viewer.*
-
-### 3. Frontend Web App
+### 2. Frontend Web App
 
 1. Navigate to: `cd frontend`
 2. Start Dev server: 
