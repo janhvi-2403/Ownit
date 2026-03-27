@@ -17,9 +17,9 @@ OwnIt is a next-generation digital ownership and verification platform designed 
 We implemented browser-based AI using TensorFlow.js instead of traditional Python ML.
 
 🔍 Mobile Detection System
-Uses @tensorflow/tfjs + @tensorflow-models/coco-ssd
+Uses @tensorflow/tfjs and @tensorflow-models/coco-ssd
 Detects "cell phone" objects in real-time
-Runs directly in browser (no backend needed)
+Runs directly in the browser (no backend required)
 Triggers:
 🚫 Document access block
 📢 Owner alert via WebSocket
@@ -29,11 +29,12 @@ Triggers:
 
 🏗️ Tech Stack
 🔹 Backend
-Node.js + Express.js
+Node.js
+Express.js
 MongoDB + Mongoose
-Socket.IO (real-time)
-Algorand SDK (blockchain)
-IPFS (decentralized storage)
+Socket.IO
+Algorand SDK
+IPFS
 🔹 Frontend (Web)
 React + Vite
 Tailwind CSS (Glassmorphism UI)
@@ -42,20 +43,21 @@ React Router
 🔹 Mobile App
 React Native + Expo
 Expo Camera
-SecureStore + Biometrics
+SecureStore
+Biometrics Authentication
 📁 Project Structure
 OwnIt/
 │
-├── backend/        # Node.js API + DB + Blockchain
+├── backend/        # Node.js API + Database + Blockchain
 ├── frontend/       # React Web App + AI Detection
-├── mobile/         # React Native App
+├── mobile/         # React Native Application
 ⚙️ Setup Instructions
 🔧 Prerequisites
 Node.js (v18+)
-MongoDB (local)
+MongoDB (running locally on port 27017)
 Expo CLI
 OpenRouter API Key
-🖥️ 1. Backend Setup
+🖥️ Backend Setup
 cd backend
 
 Create .env file:
@@ -73,7 +75,7 @@ node src/scripts/seed.js
 Start server:
 
 node server.js
-🌐 2. Frontend Setup
+🌐 Frontend Setup
 cd frontend
 npm install
 npm run dev
@@ -81,7 +83,7 @@ npm run dev
 App runs at:
 
 http://localhost:5173
-📱 3. Mobile App
+📱 Mobile App Setup
 cd mobile
 npm install
 npx expo start
@@ -89,20 +91,19 @@ npx expo start
 Email: admin@ownit.gov.in
 Password: password123
 🔳 QR Code System
-Each verified credential generates a secure QR
-Features:
-Encrypted data (AES-256)
-Expiry-based access
-Scan analytics
-Share via WhatsApp / Email
+Each verified credential generates a secure QR code
+AES-256 encrypted data
+Expiry-based access control
+Share via WhatsApp, Email, or Link
+Scan analytics (location, device, count)
 🛡️ Document Protection System
 ❌ Screenshot disabled
-❌ Right-click blocked
+❌ Right-click disabled
 ❌ Print disabled
 👁️ Dynamic + Invisible watermarks
-📷 Camera detection using AI
+📷 AI-based camera detection
 ⏱️ Session timeout
-🔔 Real-time violation alerts
+🔔 Real-time alerts on violations
 👥 User Roles (8 Types)
 Super Admin
 Authority Admin
@@ -113,7 +114,7 @@ Bank
 Carbon Buyer
 Verification Officer
 🔗 Blockchain Features
-Land tokenization (ASA tokens)
+Land tokenization (Algorand ASA)
 Carbon credit trading
 Immutable credential verification
 Smart contracts (escrow + atomic swaps)
@@ -132,14 +133,14 @@ Consent Records
 🚀 Why This Project Stands Out
 ⚡ No Python ML server required (browser AI)
 🔐 End-to-end secure document lifecycle
-🇮🇳 Built specifically for Indian ecosystem
-🔗 Real blockchain integration (not mock)
+🇮🇳 Built for Indian ecosystem
+🔗 Real blockchain integration
 📱 Cross-platform (Web + Mobile)
 🏁 Future Scope
 Aadhaar / DigiLocker integration
 Face recognition verification
 Government API integrations
-AI model training improvements
+Advanced AI model improvements
 Multi-language support
 🤝 Contributors
 Janhvi Pagare
