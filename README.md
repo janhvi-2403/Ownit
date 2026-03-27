@@ -62,17 +62,6 @@ We implemented **browser-based AI using TensorFlow.js** instead of traditional P
 
 ---
 
-## 📁 Project Structure
-
-
-OwnIt/
-│
-├── backend/ # Node.js API + Database + Blockchain
-├── frontend/ # React Web App + AI Detection
-├── mobile/ # React Native Application
-
----
-
 ## ⚙️ Setup Instructions
 
 ### 🔧 Prerequisites
