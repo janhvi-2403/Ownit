@@ -1,58 +1,146 @@
-# OwnIt - India's Digital Ownership Wallet
+🚀 OwnIt – India’s Digital Ownership Wallet
 
-OwnIt is a next-generation platform for digital ownership designed for 1.4 billion Indians. It securely tokenizes credentials, land records, and carbon credits on the Algorand blockchain, using AI-driven verification logic and secure mobile detection.
+OwnIt is a next-generation digital ownership and verification platform designed for India. It enables secure storage, verification, and sharing of credentials, land assets, and carbon credits using blockchain + AI-powered validation.
 
-## Project Structure
+🌟 Key Features
+🔐 Secure Digital Vault for documents & credentials
+📜 Blockchain Integration (Algorand) for immutability
+🤖 AI-Based Verification & Fraud Detection
+📱 Real-Time Mobile/Camera Detection (TFJS + COCO-SSD)
+🔳 QR Code Sharing & Verification System
+🏦 Land Tokenization & Loan Support
+🌱 Carbon Credit Marketplace
+👥 8 Role-Based User System
+⚡ Real-time Alerts via WebSockets
+🧠 AI Innovation (Highlight Feature)
 
-- **`backend/`**: Node.js + Express + MongoDB. Contains 15 collections, robust REST routing, WebSocket triggers, and the Algorand/IPFS integrations.
-- **`frontend/`**: Vite + React + TailwindCSS (v4). Features global glassmorphism, React-Router, and complex QR/TFJS camera components.
-- **`mobile/`**: React Native + Expo App. Includes deep-linking and secure vault screen-capture prevention mechanisms.
+We implemented browser-based AI using TensorFlow.js instead of traditional Python ML.
 
+🔍 Mobile Detection System
+Uses @tensorflow/tfjs + @tensorflow-models/coco-ssd
+Detects "cell phone" objects in real-time
+Runs directly in browser (no backend needed)
+Triggers:
+🚫 Document access block
+📢 Owner alert via WebSocket
+📸 Evidence capture
 
-## Setup Instructions
+💡 This ensures document protection against photography leaks
 
-### Prerequisites
-- Node.js (v18+)
-- Python (v3.9+)
-- MongoDB running locally on port 27017
-- Expo CLI
+🏗️ Tech Stack
+🔹 Backend
+Node.js + Express.js
+MongoDB + Mongoose
+Socket.IO (real-time)
+Algorand SDK (blockchain)
+IPFS (decentralized storage)
+🔹 Frontend (Web)
+React + Vite
+Tailwind CSS (Glassmorphism UI)
+TensorFlow.js + COCO-SSD
+React Router
+🔹 Mobile App
+React Native + Expo
+Expo Camera
+SecureStore + Biometrics
+📁 Project Structure
+OwnIt/
+│
+├── backend/        # Node.js API + DB + Blockchain
+├── frontend/       # React Web App + AI Detection
+├── mobile/         # React Native App
+⚙️ Setup Instructions
+🔧 Prerequisites
+Node.js (v18+)
+MongoDB (local)
+Expo CLI
+OpenRouter API Key
+🖥️ 1. Backend Setup
+cd backend
 
-> **OPENROUTER API KEY**: Replace the key inside `backend/.env` (when created) to enable AI insights.
+Create .env file:
 
-### 1. Backend & Database Seeding
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/ownit
+JWT_SECRET=supersecret
+OPENROUTER_API_KEY=your_key_here
+ALGOD_SERVER=https://testnet-api.algonode.cloud
 
-1. Navigate to backend: `cd backend`
-2. Create `.env`:
-   ```env
-   PORT=5000
-   MONGODB_URI=mongodb://localhost:27017/ownit
-   JWT_SECRET=supersecret
-   OPENROUTER_API_KEY=your_key_here
-   ALGOD_SERVER=https://testnet-api.algonode.cloud
-   ```
-3. Run the database seeder to populate dummy profiles (IITs, Banks, 20+ Credentials):
-   ```bash
-   node src/scripts/seed.js
-   ```
-4. Start Server:
-   ```bash
-   node server.js
-   ```
+Seed database:
 
-### 2. Frontend Web App
+node src/scripts/seed.js
 
-1. Navigate to: `cd frontend`
-2. Start Dev server: 
-   ```bash
-   npm run dev
-   ```
-3. App available at usually `http://localhost:5173`. Use credentials from `seed.js` or `admin@ownit.gov.in` (password: `password123`).
+Start server:
 
-### 4. Mobile App (Expo)
+node server.js
+🌐 2. Frontend Setup
+cd frontend
+npm install
+npm run dev
 
-1. Navigate to: `cd mobile`
-2. Start bundler:
-   ```bash
-   npx expo start
-   ```
-3. Use Expo Go on your physical device, scan the terminal QR code to view the secure vault screens.
+App runs at:
+
+http://localhost:5173
+📱 3. Mobile App
+cd mobile
+npm install
+npx expo start
+👤 Demo Credentials
+Email: admin@ownit.gov.in
+Password: password123
+🔳 QR Code System
+Each verified credential generates a secure QR
+Features:
+Encrypted data (AES-256)
+Expiry-based access
+Scan analytics
+Share via WhatsApp / Email
+🛡️ Document Protection System
+❌ Screenshot disabled
+❌ Right-click blocked
+❌ Print disabled
+👁️ Dynamic + Invisible watermarks
+📷 Camera detection using AI
+⏱️ Session timeout
+🔔 Real-time violation alerts
+👥 User Roles (8 Types)
+Super Admin
+Authority Admin
+Government Authority
+Citizen/User
+Employer
+Bank
+Carbon Buyer
+Verification Officer
+🔗 Blockchain Features
+Land tokenization (ASA tokens)
+Carbon credit trading
+Immutable credential verification
+Smart contracts (escrow + atomic swaps)
+📊 Database (15 Collections)
+
+Includes:
+
+Users
+Credentials
+QR Codes
+Audit Logs
+Fraud Alerts
+Carbon Credits
+Loan Applications
+Consent Records
+🚀 Why This Project Stands Out
+⚡ No Python ML server required (browser AI)
+🔐 End-to-end secure document lifecycle
+🇮🇳 Built specifically for Indian ecosystem
+🔗 Real blockchain integration (not mock)
+📱 Cross-platform (Web + Mobile)
+🏁 Future Scope
+Aadhaar / DigiLocker integration
+Face recognition verification
+Government API integrations
+AI model training improvements
+Multi-language support
+🤝 Contributors
+Janhvi Pagare
+Harshkumar Bhavsar
