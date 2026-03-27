@@ -71,7 +71,6 @@ OwnIt/
 ├── frontend/ # React Web App + AI Detection
 ├── mobile/ # React Native Application
 
-
 ---
 
 ## ⚙️ Setup Instructions
