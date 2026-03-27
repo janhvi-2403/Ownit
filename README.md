@@ -1,63 +1,93 @@
-🚀 OwnIt – India’s Digital Ownership Wallet
+# 🚀 OwnIt – India’s Digital Ownership Wallet
 
-OwnIt is a next-generation digital ownership and verification platform designed for India. It enables secure storage, verification, and sharing of credentials, land assets, and carbon credits using blockchain + AI-powered validation.
+OwnIt is a **next-generation digital ownership and verification platform** designed for India.  
+It enables secure storage, verification, and sharing of credentials, land assets, and carbon credits using **blockchain + AI-powered validation**.
 
-🌟 Key Features
-🔐 Secure Digital Vault for documents & credentials
-📜 Blockchain Integration (Algorand) for immutability
-🤖 AI-Based Verification & Fraud Detection
-📱 Real-Time Mobile/Camera Detection (TFJS + COCO-SSD)
-🔳 QR Code Sharing & Verification System
-🏦 Land Tokenization & Loan Support
-🌱 Carbon Credit Marketplace
-👥 8 Role-Based User System
-⚡ Real-time Alerts via WebSockets
-🧠 AI Innovation (Highlight Feature)
+---
 
-We implemented browser-based AI using TensorFlow.js instead of traditional Python ML.
+## 🌟 Key Features
 
-🔍 Mobile Detection System
-Uses @tensorflow/tfjs and @tensorflow-models/coco-ssd
-Detects "cell phone" objects in real-time
-Runs directly in the browser (no backend required)
-Triggers:
-🚫 Document access block
-📢 Owner alert via WebSocket
-📸 Evidence capture
+- 🔐 Secure Digital Vault for documents & credentials  
+- 📜 Blockchain Integration (Algorand) for immutability  
+- 🤖 AI-Based Verification & Fraud Detection  
+- 📱 Real-Time Mobile/Camera Detection (TFJS + COCO-SSD)  
+- 🔳 QR Code Sharing & Verification System  
+- 🏦 Land Tokenization & Loan Support  
+- 🌱 Carbon Credit Marketplace  
+- 👥 8 Role-Based User System  
+- ⚡ Real-time Alerts via WebSockets  
 
-💡 This ensures document protection against photography leaks
+---
 
-🏗️ Tech Stack
-🔹 Backend
-Node.js
-Express.js
-MongoDB + Mongoose
-Socket.IO
-Algorand SDK
-IPFS
-🔹 Frontend (Web)
-React + Vite
-Tailwind CSS (Glassmorphism UI)
-TensorFlow.js + COCO-SSD
-React Router
-🔹 Mobile App
-React Native + Expo
-Expo Camera
-SecureStore
-Biometrics Authentication
-📁 Project Structure
+## 🧠 AI Innovation (Highlight Feature)
+
+We implemented **browser-based AI using TensorFlow.js** instead of traditional Python ML.
+
+### 🔍 Mobile Detection System
+
+- Uses `@tensorflow/tfjs` and `@tensorflow-models/coco-ssd`  
+- Detects **"cell phone" objects in real-time**  
+- Runs directly in the browser (no backend required)  
+
+**Triggers:**
+- 🚫 Document access block  
+- 📢 Owner alert via WebSocket  
+- 📸 Evidence capture  
+
+💡 Ensures **document protection against photography leaks**
+
+---
+
+## 🏗️ Tech Stack
+
+### 🔹 Backend
+- Node.js  
+- Express.js  
+- MongoDB + Mongoose  
+- Socket.IO  
+- Algorand SDK  
+- IPFS  
+
+### 🔹 Frontend (Web)
+- React + Vite  
+- Tailwind CSS (Glassmorphism UI)  
+- TensorFlow.js + COCO-SSD  
+- React Router  
+
+### 🔹 Mobile App
+- React Native + Expo  
+- Expo Camera  
+- SecureStore  
+- Biometric Authentication  
+
+---
+
+## 📁 Project Structure
+
+
 OwnIt/
 │
-├── backend/        # Node.js API + Database + Blockchain
-├── frontend/       # React Web App + AI Detection
-├── mobile/         # React Native Application
-⚙️ Setup Instructions
-🔧 Prerequisites
-Node.js (v18+)
-MongoDB (running locally on port 27017)
-Expo CLI
-OpenRouter API Key
-🖥️ Backend Setup
+├── backend/ # Node.js API + Database + Blockchain
+├── frontend/ # React Web App + AI Detection
+├── mobile/ # React Native Application
+
+
+---
+
+## ⚙️ Setup Instructions
+
+### 🔧 Prerequisites
+
+- Node.js (v18+)  
+- MongoDB (running locally on port 27017)  
+- Expo CLI  
+- OpenRouter API Key  
+
+---
+
+### 🖥️ Backend Setup
+
+```bash
 cd backend
 
 Create .env file:
@@ -88,7 +118,7 @@ cd mobile
 npm install
 npx expo start
 👤 Demo Credentials
-Email: admin@ownit.gov.in
+Email: admin@ownit.gov.in  
 Password: password123
 🔳 QR Code System
 Each verified credential generates a secure QR code
@@ -119,9 +149,6 @@ Carbon credit trading
 Immutable credential verification
 Smart contracts (escrow + atomic swaps)
 📊 Database (15 Collections)
-
-Includes:
-
 Users
 Credentials
 QR Codes
